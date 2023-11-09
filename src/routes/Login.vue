@@ -62,7 +62,7 @@ const notNullRules = [
                 <v-text-field clearable variant="outlined" label="手机号码" v-model="inputCredential.phone" placeholder="Phone" type="text" :rules="notNullRules"/>
                 <v-text-field clearable variant="outlined" label="密码" v-model="inputCredential.password" placeholder="Password" type="password" :rules="notNullRules"/>
                 <v-checkbox class="self-end" v-model="saveCredential" label="自动登录"/>
-                <v-btn class="w-full" color="primary" type="submit" @click="login">登录</v-btn>
+                <v-btn class="w-full" color="primary" type="button" @click="login">登录</v-btn>
             </v-form>
         </div>
     </div>
