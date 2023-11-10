@@ -1,6 +1,6 @@
 [package]
 name = "ark-gacha"
-version = "0.0.1"
+version = "0.0.3"
 description = "Arknights Gacha Visualizer"
 authors = ["kht/Smilingpie"]
 license = "AGPL-3.0"

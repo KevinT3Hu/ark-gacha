@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "ark-gacha",
-    "version": "0.0.1"
+    "version": "0.0.3s"
   },
   "tauri": {
     "allowlist": {
