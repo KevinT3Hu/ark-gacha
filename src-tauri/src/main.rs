@@ -53,6 +53,13 @@ fn main() {
     };
 
     tauri::Builder::default()
+        .setup(|app|{
+            let data_dir = app.path_resolver().app_data_dir().unwrap();
+            if let Err(e) = std::fs::create_dir_all(&data_dir) {
+                panic!("Failed to create data directory: {}", e);
+            }
+            Ok(())
+        })
         .manage(app_state)
         .manage(DatabaseState::default())
         .invoke_handler(tauri::generate_handler![
