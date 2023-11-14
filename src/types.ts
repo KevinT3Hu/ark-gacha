@@ -22,6 +22,8 @@ export interface TotalStatistics {
     allPools: string[];
     poolsCount: number[];
     waterPlace: number[];
+    monthsCount: number[];
+    allMonths: string[];
 }
 
 export interface PoolStatistics {
@@ -31,4 +33,6 @@ export interface PoolStatistics {
     starsCount: number[];
     starsPercentage: number[];
     waterPlace: number;
+    monthsCount: number[];
+    allMonths: string[];
 }

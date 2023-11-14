@@ -26,6 +26,9 @@ pub enum HandlerExecutionError {
 
     #[error("Failed to send data to database thread: {0}")]
     SendError(#[from] SendError<Vec<internal_db::Gacha>>),
+
+    #[error("Failed to parse time stamp: {0}")]
+    TimeStampParseError(i64),
 }
 
 impl Serialize for HandlerExecutionError {

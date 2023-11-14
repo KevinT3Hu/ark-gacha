@@ -132,6 +132,27 @@ const poolRollsData = computed(() => {
     return data;
 })
 
+const monthRollsData = computed(() => {
+    if (statistics.value == undefined) return undefined
+
+    const stat = statistics.value;
+
+    const data: ChartData<"bar", number[], unknown> = {
+        labels: stat.allMonths,
+        datasets: [
+            {
+                indexAxis: 'y',
+                barThickness: 8,
+                label: 'Monthly Rolls',
+                data: stat.monthsCount,
+                backgroundColor: '#00a8ff'
+            }
+        ]
+    }
+
+    return data;
+})
+
 watch(currentPool, (newVal) => {
     CommandInvoker.calculateStatistics(allGacha, newVal.value).then((res) => {
         statistics.value = res;
@@ -196,6 +217,15 @@ watch(currentPool, (newVal) => {
                         <div class="" v-for="wp in waterPlaces!!">
                             <p>{{ wp.pool }}: {{ wp.wp }}</p>
                         </div>
+                    </v-card-text>
+                </v-card>
+
+                <v-card class="m-3 card">
+                    <v-card-title class="mt-2">
+                        <h1 class="text-2xl font-bold">月抽数</h1>
+                    </v-card-title>
+                    <v-card-text>
+                        <Bar :data="monthRollsData!!"></Bar>
                     </v-card-text>
                 </v-card>
             </div>

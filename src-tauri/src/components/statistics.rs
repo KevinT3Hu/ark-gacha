@@ -1,6 +1,9 @@
 use std::collections::{HashMap, HashSet};
 
+use chrono::{DateTime, Datelike};
 use serde::Serialize;
+
+use crate::components::HandlerExecutionError;
 
 use super::{gacha::SingleGacha, HandlerResult};
 
@@ -13,6 +16,8 @@ pub struct TotalStatistics {
     pub all_pools: Vec<String>,
     pub pools_count: Vec<u64>,
     pub water_place: Vec<u64>,
+    pub months_count: Vec<u64>,
+    pub all_months: Vec<String>,
 }
 
 #[derive(Debug, Serialize)]
@@ -24,6 +29,8 @@ pub struct PoolStatistics {
     pub stars_count: [u64; 4],
     pub stars_percentage: [f64; 4], // 0 to 100.00
     pub water_place: u64,
+    pub months_count: Vec<u64>,
+    pub all_months: Vec<String>,
 }
 
 #[derive(Debug, Serialize)]
@@ -40,6 +47,8 @@ impl Statistics {
         all_pools: Vec<String>,
         pools_count: Vec<u64>,
         water_place: Vec<u64>,
+        months_count: Vec<u64>,
+        all_months: Vec<String>,
         is_total: bool,
     ) -> Statistics {
         let total = stars_count.iter().sum();
@@ -55,6 +64,8 @@ impl Statistics {
                 all_pools,
                 pools_count,
                 water_place,
+                months_count,
+                all_months,
             })
         } else {
             Statistics::Pool(PoolStatistics {
@@ -64,6 +75,8 @@ impl Statistics {
                 stars_count,
                 stars_percentage,
                 water_place: water_place[0],
+                months_count,
+                all_months,
             })
         }
     }
@@ -81,6 +94,7 @@ pub fn calculate_statistics(
     let mut all_pools = HashSet::new();
     let mut pools_count = HashMap::new();
     let mut water_place = HashMap::new();
+    let mut months_count = HashMap::new();
 
     let mut gacha = gacha.to_vec();
     gacha.sort_by(|a, b| a.timestamp.cmp(&b.timestamp));
@@ -108,6 +122,15 @@ pub fn calculate_statistics(
                 .and_modify(|x| *x = 0)
                 .or_insert(0);
         }
+        
+        // get month of gacha
+        let date = DateTime::from_timestamp(gacha.timestamp, 0).ok_or(HandlerExecutionError::TimeStampParseError(gacha.timestamp))?;
+        let month = format!("{}-{}", date.year(), date.month());
+        months_count
+            .entry(month)
+            .and_modify(|x| *x += 1)
+            .or_insert(1);
+
         if !pools.contains(&gacha.pool) {
             pools.push(gacha.pool.clone());
         }
@@ -117,12 +140,17 @@ pub fn calculate_statistics(
     let pools_count = pools.iter().map(|x| pools_count[x]).collect();
     let water_place = pools.iter().map(|x| water_place[x]).collect();
 
+    let all_months = months_count.keys().cloned().collect();
+    let months_count = months_count.values().cloned().collect();
+
     Ok(Statistics::new(
         stars_count,
         pools,
         all_pools,
         pools_count,
         water_place,
+        months_count,
+        all_months,
         pool.is_none(),
     ))
 }
