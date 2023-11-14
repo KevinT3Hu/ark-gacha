@@ -175,8 +175,10 @@ watch(currentPool, (newVal) => {
             </div>
         </div>
 
+        <v-progress-linear class="mt-16" indeterminate color="blue"></v-progress-linear>
+
         <!--content-->
-        <div class="mt-16 z-0">
+        <div class="z-0">
             <div class="flex flex-row items-center justify-center">
                 <v-select v-model="currentPool" :items="poolOptions" item-title="title" item-value="value" label="选择卡池"
                     class="ml-2 mr-2 mt-2 max-w-xs" return-object></v-select>
