@@ -193,6 +193,32 @@ watch(currentPool, (newVal) => {
                     </v-card-title>
                     <v-card-text>
                         <Pie responsive :data="pieData!!"></Pie>
+                        <!--percentages-->
+                        <div class="flex flex-row justify-evenly mt-1">
+                            <div class="flex flex-col justify-center items-center">
+                                <div class="w-4 h-4 rounded-full bg-gray-600"></div>
+                                <p class="text-sm">三星</p>
+                                <p class="text-sm">{{ statistics.starsPercentage[0].toFixed(0) }}%</p>
+                            </div>
+
+                            <div class="flex flex-col justify-center items-center">
+                                <div class="w-4 h-4 rounded-full bg-blue-400"></div>
+                                <p class="text-sm">四星</p>
+                                <p class="text-sm">{{ statistics.starsPercentage[1].toFixed(1) }}%</p>
+                            </div>
+
+                            <div class="flex flex-col justify-center items-center">
+                                <div class="w-4 h-4 rounded-full bg-yellow-400"></div>
+                                <p class="text-sm">五星</p>
+                                <p class="text-sm">{{ statistics.starsPercentage[2].toFixed(2) }}%</p>
+                            </div>
+
+                            <div class="flex flex-col justify-center items-center">
+                                <div class="w-4 h-4 rounded-full bg-red-400"></div>
+                                <p class="text-sm">六星</p>
+                                <p class="text-sm">{{ statistics.starsPercentage[3].toFixed(2) }}%</p>
+                            </div>
+                        </div>
                     </v-card-text>
                 </v-card>
 
