@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+bump_version.*
+
 # Editor directories and files
 .vscode/*
 .idea
