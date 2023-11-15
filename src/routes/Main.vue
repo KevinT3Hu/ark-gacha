@@ -175,7 +175,7 @@ watch(currentPool, (newVal) => {
             </div>
         </div>
 
-        <v-progress-linear class="mt-16" indeterminate color="blue"></v-progress-linear>
+        <v-progress-linear v-if="statistics==undefined" class="mt-16" indeterminate color="blue"></v-progress-linear>
 
         <!--content-->
         <div class="z-0">

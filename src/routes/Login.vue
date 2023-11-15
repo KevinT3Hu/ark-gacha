@@ -10,7 +10,7 @@ const inputCredential = ref({
     password: ''
 })
 
-const mannualLogin = ref(true);
+const mannualLogin = ref(false);
 
 const saveCredential = ref(false);
 
@@ -65,5 +65,10 @@ const notNullRules = [
                 <v-btn class="w-full" color="primary" type="button" @click="login">登录</v-btn>
             </v-form>
         </div>
+    </div>
+
+    <div class="flex flex-col content-center h-screen items-center justify-center" v-else>
+        <v-progress-circular indeterminate size="128" color="blue"></v-progress-circular>
+        <p class="mt-4 text-3xl">登录中...</p>
     </div>
 </template>
